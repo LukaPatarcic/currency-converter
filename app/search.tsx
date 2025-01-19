@@ -1,18 +1,13 @@
 import React from 'react'
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  SafeAreaView,
-  TextInput,
-  Pressable,
-} from 'react-native'
+import { StyleSheet, FlatList, Pressable } from 'react-native'
 import { Image } from 'expo-image'
 import { ThemedText } from '@/components/ThemedText'
 import { useCurrencyStore } from '@/store/use-currency-store'
 import { ThemedView } from '@/components/ThemedView'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import { Currency } from '@/api/currencies'
+import { ThemedTextInput } from '@/components/ui/ThemedTextInput'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function SearchScreen() {
   const router = useRouter()
@@ -27,6 +22,7 @@ export default function SearchScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <ThemedTextInput autoFocus placeholder="Search for Currency" />
       <FlatList
         data={countries}
         style={{ width: '100%' }}
@@ -57,6 +53,7 @@ export default function SearchScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    gap: 20,
     justifyContent: 'center',
     alignItems: 'center',
   },

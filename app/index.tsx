@@ -2,23 +2,22 @@ import React from 'react'
 import {
   View,
   StyleSheet,
-  TextInput,
   NativeSyntheticEvent,
   TextInputSubmitEditingEventData,
 } from 'react-native'
 import { ThemedText } from '@/components/ThemedText'
-import { useMutation, useQuery } from '@tanstack/react-query'
-import axios from 'axios'
-import { Link } from 'expo-router'
+import { useMutation } from '@tanstack/react-query'
 import { useCurrencyStore } from '@/store/use-currency-store'
 import { ThemedView } from '@/components/ThemedView'
-import { Image } from 'expo-image'
-import { ConversionResponse, convertCurrency, Currency } from '@/api/currencies'
+import { ConversionResponse, convertCurrency } from '@/api/currencies'
+import { ThemedTextInput } from '@/components/ui/ThemedTextInput'
+import { CurrencyItem } from '@/components/CurrencyItem'
 
 export default function HomeScreen() {
-  const defaultCurrencies = useCurrencyStore(state => state.defaultCurrencies)
+  const [fromCurrency, toCurrency] = useCurrencyStore(
+    state => state.defaultCurrencies,
+  )
   const [result, setResult] = React.useState<ConversionResponse | null>(null)
-  const [fromCurrency, toCurrency] = defaultCurrencies
   const currencyConverterMutation = useMutation({
     mutationFn: ({
       fromCurrency,
@@ -47,55 +46,21 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Link href="/search?index=0">
-        <ThemedView
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            flexDirection: 'row',
-            width: '100%',
-          }}
-        >
-          <Image
-            style={{ width: 64, height: 64, marginRight: 10 }}
-            source={`https://raw.githubusercontent.com/Lissy93/currency-flags/master/assets/flags_svg/${fromCurrency?.code.toLowerCase()}.svg`}
-          />
-          <ThemedText>{fromCurrency?.name}</ThemedText>
-        </ThemedView>
-      </Link>
-
-      <Link href="/search?index=1">
-        <ThemedView
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            flexDirection: 'row',
-            width: '100%',
-          }}
-        >
-          <Image
-            style={{ width: 64, height: 64, marginRight: 10 }}
-            source={`https://raw.githubusercontent.com/Lissy93/currency-flags/master/assets/flags_svg/${toCurrency?.code.toLowerCase()}.svg`}
-          />
-          <ThemedText>{toCurrency?.name}</ThemedText>
-        </ThemedView>
-      </Link>
-
-      <TextInput
-        style={{
-          width: '100%',
-          borderStyle: 'solid',
-          borderWidth: 1,
-          borderColor: 'white',
-          color: 'white',
-        }}
+      {fromCurrency && (
+        <CurrencyItem currency={fromCurrency} href="/search?index=0" />
+      )}
+      {toCurrency && (
+        <CurrencyItem currency={toCurrency} href="/search?index=1" />
+      )}
+      <ThemedTextInput
         submitBehavior="blurAndSubmit"
         onSubmitEditing={onSubmit}
         keyboardType="numeric"
+        placeholder="Enter amount"
       />
       {result && (
         <ThemedView>
-          <ThemedText>{result.result}</ThemedText>
+          <ThemedText>{result.result.toFixed(2)}</ThemedText>
         </ThemedView>
       )}
     </View>
