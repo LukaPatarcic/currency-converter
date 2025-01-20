@@ -1,18 +1,22 @@
-import React from 'react'
-import { StyleSheet, FlatList, Pressable } from 'react-native'
-import { Image } from 'expo-image'
-import { ThemedText } from '@/components/ThemedText'
+import React, { useState } from 'react'
+import {
+  StyleSheet,
+  FlatList,
+  NativeSyntheticEvent,
+  TextInputChangeEventData,
+} from 'react-native'
 import { useCurrencyStore } from '@/store/use-currency-store'
-import { ThemedView } from '@/components/ThemedView'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import { Currency } from '@/api/currencies'
 import { ThemedTextInput } from '@/components/ui/ThemedTextInput'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { SearchItem } from '@/components/SearchItem'
 
 export default function SearchScreen() {
   const router = useRouter()
   const { index } = useLocalSearchParams<{ index: '0' | '1' }>()
-  const countries = useCurrencyStore(state => state.currencies)
+  const initialCountries = useCurrencyStore(state => state.currencies)
+  const [countries, setCountries] = useState(initialCountries)
   const setDefaultCurrency = useCurrencyStore(state => state.setDefaultCurrency)
 
   const onItemPress = (item: Currency) => {
@@ -20,30 +24,29 @@ export default function SearchScreen() {
     router.back()
   }
 
+  const onChange = (e: NativeSyntheticEvent<TextInputChangeEventData>) => {
+    const text = e.nativeEvent.text.toLowerCase().trim()
+    const filteredCountries = initialCountries.filter(
+      country =>
+        country.name.toLowerCase().includes(text) ||
+        country.code.toLowerCase().includes(text),
+    )
+
+    setCountries(filteredCountries)
+  }
+
   return (
     <SafeAreaView style={styles.container}>
-      <ThemedTextInput autoFocus placeholder="Search for Currency" />
+      <ThemedTextInput
+        autoFocus
+        placeholder="Search for Currency"
+        onChange={onChange}
+      />
       <FlatList
         data={countries}
         style={{ width: '100%' }}
         renderItem={({ item }) => (
-          <Pressable onPress={() => onItemPress(item)}>
-            <ThemedView
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginBottom: 10,
-                width: '100%',
-              }}
-            >
-              <Image
-                style={{ width: 64, height: 64, marginRight: 10 }}
-                source={`https://raw.githubusercontent.com/Lissy93/currency-flags/master/assets/flags_svg/${item.code.toLowerCase()}.svg`}
-              />
-              <ThemedText>{item.name}</ThemedText>
-            </ThemedView>
-          </Pressable>
+          <SearchItem item={item} onItemPress={onItemPress} />
         )}
       />
     </SafeAreaView>

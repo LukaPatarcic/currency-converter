@@ -32,8 +32,12 @@ const baseUrl = 'https://api.fxratesapi.com'
 
 export const fetchCurrencies = async () => {
   const response = await fetch(`${baseUrl}/currencies`)
-  const currencies = (await response.json()) as Record<string, Currency>
-  return Object.values(currencies)
+  const currenciesObject = (await response.json()) as Record<string, Currency>
+  const currencies = Object.values(currenciesObject)
+  const sortedCurrencies = currencies.sort((a, b) =>
+    a.name.localeCompare(b.name),
+  )
+  return sortedCurrencies
 }
 
 export const convertCurrency = async (

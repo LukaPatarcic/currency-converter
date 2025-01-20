@@ -1,5 +1,5 @@
-import { ThemedView } from '@/components/ThemedView'
-import { ThemedText } from '@/components/ThemedText'
+import { ThemedView } from '@/components/ui/ThemedView'
+import { ThemedText } from '@/components/ui/ThemedText'
 import { Link, Href } from 'expo-router'
 import React from 'react'
 import { FlagImage } from '@/components/FlagImage'
@@ -13,7 +13,7 @@ interface CurrencyItemProps {
 
 export const CurrencyItem = ({ currency, href }: CurrencyItemProps) => {
   return (
-    <Link href={href}>
+    <Link href={href} push>
       <ThemedView style={styles.container}>
         <FlagImage code={currency.code.toLowerCase()} />
         <ThemedText>{currency.name}</ThemedText>
@@ -25,6 +25,8 @@ export const CurrencyItem = ({ currency, href }: CurrencyItemProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
     alignItems: 'center',
     flexDirection: 'row',
     width: '100%',
