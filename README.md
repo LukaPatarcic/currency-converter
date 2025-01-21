@@ -1,50 +1,73 @@
-# Welcome to your Expo app 👋
+# Currency Converter App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is a Currency Converter application built with React Native and Expo. The app allows users to convert between different currencies and search for specific currencies.
 
-## Get started
+## Table of Contents
 
-1. Install dependencies
+- [Installation](#installation)
+- [Usage](#usage)
+- [Scripts](#scripts)
+- [Dependencies](#dependencies)
+- [Dev Dependencies](#dev-dependencies)
+- [License](#license)
 
-   ```bash
-   npm install
-   ```
+## Installation
 
-2. Start the app
+1. **Clone the repository:**
+    ```sh
+    git clone <repository-url>
+    ```
+   Replace `<repository-url>` with the URL of your repository.
 
-   ```bash
-    npx expo start
-   ```
+2. **Navigate to the project directory:**
+    ```sh
+    cd <project-directory>
+    ```
+   Replace `<project-directory>` with the name of the directory where the project is located.
 
-In the output, you'll find options to open the app in a
+3. **Install the dependencies:**
+    ```sh
+    npm install
+    ```
+   This command will install all the necessary dependencies required to run the application.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Usage
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+To start the application, use the following commands based on your target platform:
 
-## Get a fresh project
+1. **Start the Expo development server:**
+    ```sh
+    npm start
+    ```
+   This will start the Expo development server, which you can use to run the application on different platforms.
 
-When you're ready, run:
+2. **Run the application on an Android device/emulator:**
+    ```sh
+    npm run android
+    ```
+   Make sure you have an Android device connected or an emulator running.
 
-```bash
-npm run reset-project
-```
+3. **Run the application on an iOS device/simulator:**
+    ```sh
+    npm run ios
+    ```
+   This requires a Mac with Xcode installed.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+4. **Run the application on the web:**
+    ```sh
+    npm run web
+    ```
+   This will open the application in your default web browser.
 
-## Learn more
+## Scripts
 
-To learn more about developing your project with Expo, look at the following resources:
+Here are the available scripts you can run:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- `start`: Starts the Expo development server.
+- `reset-project`: Resets the project using a custom script.
+- `android`: Runs the application on an Android device/emulator.
+- `ios`: Runs the application on an iOS device/simulator.
+- `test`: Runs the tests using Jest.
+- `lint`: Lints the code using ESLint.
 
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+This project is licensed under the MIT License.
