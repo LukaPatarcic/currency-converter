@@ -16,7 +16,9 @@ export const CurrencyItem = ({ currency, href }: CurrencyItemProps) => {
     <Link href={href} push>
       <ThemedView style={styles.container}>
         <FlagImage code={currency.code.toLowerCase()} />
-        <ThemedText>{currency.name}</ThemedText>
+        <ThemedText>
+          {currency.name} - {currency.code}
+        </ThemedText>
       </ThemedView>
     </Link>
   )

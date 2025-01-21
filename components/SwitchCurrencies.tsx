@@ -5,36 +5,27 @@ import { useThemeColor } from '@/hooks/useThemeColor'
 import { useCurrencyStore } from '@/store/use-currency-store'
 
 export const SwitchCurrencies = () => {
-  const backgroundColor = useThemeColor('tint')
-  const setDefaultCurrency = useCurrencyStore(state => state.setDefaultCurrency)
-  const defaultCurrencies = useCurrencyStore(state => state.defaultCurrencies)
+  const backgroundColor = useThemeColor('background')
+  const switchCurrencies = useCurrencyStore(state => state.switchCurrencies)
 
-  const onPress = () => {
-    const [fromCurrency, toCurrency] = [...defaultCurrencies]
-    if (!fromCurrency || !toCurrency) {
-      return
-    }
-
-    setDefaultCurrency(toCurrency, '0')
-    setDefaultCurrency(fromCurrency, '1')
-  }
   return (
-    <Pressable onPress={onPress}>
+    <Pressable onPress={switchCurrencies}>
       <View
         style={{
           backgroundColor,
           padding: 5,
-          borderRadius: 100,
-          position: 'absolute',
-          right: 0,
-          zIndex: 2,
-          top: '50%',
-          transform: 'translateY(-17.5%)',
+          justifyContent: 'center',
+          width: '100%',
+          height: 35,
         }}
       >
         <ThemedIcon
           name="compare-arrows"
-          style={{ transform: 'rotate(90deg)' }}
+          style={{
+            transform: [{ translateX: '-50%' }, { rotate: '90deg' }],
+            position: 'absolute',
+            left: '50%',
+          }}
         />
       </View>
     </Pressable>

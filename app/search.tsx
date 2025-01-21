@@ -45,6 +45,7 @@ export default function SearchScreen() {
       <FlatList
         data={countries}
         style={{ width: '100%' }}
+        keyboardShouldPersistTaps="always"
         renderItem={({ item }) => (
           <SearchItem item={item} onItemPress={onItemPress} />
         )}

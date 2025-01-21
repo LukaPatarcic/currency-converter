@@ -1,12 +1,13 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import { mmkvStorage } from '@/helpers/mmkv'
-import { Animated } from 'react-native'
+import { DarkTheme, DefaultTheme } from '@react-navigation/native'
 
 type Theme = 'light' | 'dark' | 'automatic'
 
 interface SettingsStore {
   theme: Theme
+  themeValue: typeof DefaultTheme | typeof DarkTheme
   setTheme: (theme: Theme) => void
 }
 
@@ -14,7 +15,11 @@ export const useSettingsStore = create(
   persist<SettingsStore>(
     (set, get) => ({
       theme: 'automatic',
-      setTheme: (theme: Theme) => set({ theme }),
+      themeValue: DefaultTheme,
+      setTheme: (theme: Theme) => {
+        const themeValue = theme === 'dark' ? DarkTheme : DefaultTheme
+        set({ theme, themeValue })
+      },
     }),
     {
       name: 'settings-store',
